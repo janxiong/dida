@@ -1,0 +1,47 @@
+<div *ngIf="contact">
+  <h2>Information {{contact.id}}</h2>
+  <div>
+    <label>id: </label>{{contact.id}}
+  </div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="contact.name" placeholder="name" />
+  </div>
+  <div>
+    <label>cellphone: </label>
+    <input [(ngModel)]="contact.cellphone" placeholder="cellphone" />
+  </div>
+  <div>
+    <label>telephone: </label>
+    <input [(ngModel)]="contact.telephone" placeholder="telephone" />
+  </div>
+  <div>
+    <label>Email: </label>
+    <input [(ngModel)]="contact.Email" placeholder="Email" />
+  </div>
+  <div>
+    <label>InformType: </label>
+    <select 
+        [(ngModel)]="selectedType" (ngModelChange)="updateInformType($event)">
+        <option disabled value="0" class="hideoption">{{contact.InformType}}</option>
+        <option *ngFor="let informtype of informtypes"    [ngValue]="informtype" > 
+        {{informtype.typeDes}} - {{informtype.informType}}
+      </option>
+      </select>
+  </div>
+  <div>
+    <label>City: </label>
+    <input [(ngModel)]="contact.City" placeholder="City" />
+  </div>
+    <div>
+    <label>Role: </label>
+    <select 
+        [(ngModel)]="selectedRole" (ngModelChange)="updateRole($event)">
+        <option disabled value="0" class="hideoption">{{contact.Role}}</option>
+        <option *ngFor="let role of roles"    [ngValue]="role" > 
+        {{role.role}} - Level{{role.id}}
+      </option>
+      </select>
+  </div>
+  <button (click)="save()">Save</button> <button (click)="goBack()">Back</button>
+</div>

@@ -1,0 +1,41 @@
+<div *ngIf="hero">
+  <h2>Plan Of {{hero.date}} {{hero.weekday}}</h2>
+  <div>
+    <label>date: </label>{{hero.date}}
+  </div>
+
+  <div>
+    <label>shift owner: </label>
+      <select class="form-control" name="sel" 
+        [(ngModel)]="selectedContactShift" 
+        (ngModelChange)="updateContactshift($event)">
+        <option disabled value="0" class="hideoption">{{hero.shift}}</option>
+        <option *ngFor="let contact of contacts" [ngValue]="contact">
+        {{contact.name}}
+      </option>
+      </select>
+  </div>
+  <div>
+    <label>shiftcall: </label>
+    <input [(ngModel)]="hero.shiftcall" placeholder="shiftcall" readonly="readonly"/>
+
+
+  </div>
+  <div>
+    <label>oncall name: </label>
+      <select class="form-control" name="sel" 
+        [(ngModel)]="selectedContact" 
+        (ngModelChange)="updateContact($event)">
+        <option disabled value="0" class="hideoption">{{hero.name}}</option>
+        <option *ngFor="let contact of contacts" [ngValue]="contact">
+        {{contact.name}}
+      </option>
+      </select>
+  </div>
+  <div>
+    <label>oncall: </label>
+    <input [(ngModel)]="hero.oncall" placeholder="oncall" readonly="readonly"/>
+
+  </div>
+  <button (click)="save()">Save</button> <button (click)="goBack()">Back</button>
+</div>

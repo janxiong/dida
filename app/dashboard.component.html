@@ -1,0 +1,62 @@
+<h3>Plan Of This Week</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-7">
+    <div class="module hero">
+      <h4>{{hero.weekday}}<br><i class="glyphicon glyphicon-adjust"></i><br>{{hero.shift}}<br><i class="glyphicon glyphicon-earphone"></i><br>{{hero.name}}</h4>
+    </div>
+  </div>
+</div>
+<div>
+<h3>Contact With Us</h3>
+<table class="grid grid-pad">
+	<thead>
+        <tr><th>Name</th><th>Cellphone</th><th>City</th><th>Role</th></tr>
+    </thead>
+  <tr *ngFor="let contact of contacts" (click)="gotoContact(contact)" >
+    <td class="module hero">
+      <h4>{{contact.name}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{contact.cellphone}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{contact.City}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{contact.Role}}</h4>
+    </td>
+  </tr>
+</table>
+</div>
+<div>
+<h3>Incident Log
+    <select 
+        [(ngModel)]="selectedPeriod" (ngModelChange)="updatePeriod($event)">
+        <option disabled value="0" class="hideoption">LastWeek</option>
+        <option>LastWeek</option>
+        <option>ThisMonth</option>
+        <option>LastMonth</option>
+        
+      </select>
+      </h3>
+<table class="grid grid-pad">
+	<thead>
+  <tr><th>Time</th><th>Incident NO.</th><th>Priority</th><th>Call Member</th></tr>
+        
+    </thead>
+  <tr *ngFor="let incident of incidents" (click)="gotoDetail(contact)" >
+  	<td class="module hero">
+      <h4>{{incident.inctime}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{incident.incname}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{incident.incpriority}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{incident.inccall_name}}</h4>
+    </td>
+  </tr>
+</table>
+</div>

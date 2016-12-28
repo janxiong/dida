@@ -1,0 +1,22 @@
+<div class="col-3-7">
+<h3>Job List</h3>
+<table class="grid grid-pad">
+	<thead>
+        <tr><th>jobCode</th><th>modelState</th><th>priority</th><th>createTime</th></tr>
+    </thead>
+  <tr *ngFor="let parm of parms" (click)="gotoJobList(parm)" >
+    <td class="module hero">
+      <h4>{{parm.jobCode}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{parm.modelState}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{parm.priority}}</h4>
+    </td>
+    <td class="module hero">
+      <h4>{{parm.createTime}}</h4>
+    </td>
+  </tr>
+</table>
+</div>
