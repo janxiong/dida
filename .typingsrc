@@ -1,0 +1,2 @@
+proxy="http://proxy.kor.hp.com:8080"
+rejectUnauthorized=false
