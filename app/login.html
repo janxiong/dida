@@ -1,4 +1,4 @@
-<div class="login jumbotron center-block">
+<div class="login jumbotron center-block" *ngIf="!token">
   <h1>Login</h1>
   <form role="form" (submit)="login($event, username.value, password.value)">
   <div class="form-group">

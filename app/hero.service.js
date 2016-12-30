@@ -16,8 +16,9 @@ var HeroService = (function () {
     function HeroService(http) {
         this.http = http;
         // private heroesUrl = 'app/heroes';  // URL to web api
-        this.heroesUrl = 'http://starstech.iego.cn:8080/call_center/webApi/';
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); //{'Content-Type': 'application/x-www-form-urlencoded'});
+        // JSON.parse(localStorage.getItem('dida_user')).token
+        this.heroesUrl = 'http://starstech.iego.cn:8080/call_center/';
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     }
     HeroService.prototype.getPre = function () {
         var lastmonth = new Date(+new Date() + 8 * 3600 * 1000);
@@ -63,8 +64,9 @@ var HeroService = (function () {
         //     headers.append('Access-Control-Allow-Origin', '*');
         // 	return this.http.get(this.heroesUrl, {headers: headers})
         // return Promise.resolve(HEROES);
-        var apiurl = this.heroesUrl + 'getScheduleList';
-        return this.http.get(apiurl)
+        var apiurl = this.heroesUrl + 'webApi/getScheduleList';
+        var creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        return this.http.post(apiurl, creds, { headers: this.headers })
             .toPromise()
             .then(function (response) {
             return response.json();
@@ -72,8 +74,11 @@ var HeroService = (function () {
             .catch(this.handleError);
     };
     HeroService.prototype.getContacts = function () {
-        var apiurl = this.heroesUrl + 'getContactList';
-        return this.http.get(apiurl)
+        var apiurl = this.heroesUrl + 'webApi/getContactList';
+        var creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        console.log(creds);
+        return this.http
+            .post(apiurl, creds, { headers: this.headers })
             .toPromise()
             .then(function (response) {
             var rc = response.json();
@@ -85,7 +90,8 @@ var HeroService = (function () {
     };
     HeroService.prototype.getParms = function () {
         var apiurl = 'http://starstech.iego.cn:8080/call_center/jobCode/list';
-        return this.http.get(apiurl)
+        var creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        return this.http.post(apiurl, creds, { headers: this.headers })
             .toPromise()
             .then(function (response) {
             var rc = response.json();
@@ -105,8 +111,9 @@ var HeroService = (function () {
         return Promise.resolve(mock_heroes_1.JOBTYPES);
     };
     HeroService.prototype.getIncidents = function () {
-        var apiurl = this.heroesUrl + 'getIncidentList';
-        return this.http.get(apiurl)
+        var apiurl = this.heroesUrl + 'webApi/getIncidentList';
+        var creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        return this.http.post(apiurl, creds, { headers: this.headers })
             .toPromise()
             .then(function (response) {
             return response.json();
@@ -146,12 +153,28 @@ var HeroService = (function () {
             });
         });
     };
+    //{'Content-Type': 'application/x-www-form-urlencoded'});
     // headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    HeroService.prototype.getToken = function (user) {
+        // const url = `${this.heroesUrl}/${hero.date}`;
+        // console.log(this.headers);
+        var apiurl = this.heroesUrl + 'authApi/checkLogin';
+        var creds = "jsonStr=" + JSON.stringify(user);
+        console.log(creds);
+        return this.http
+            .post(apiurl, creds, { headers: this.headers })
+            .toPromise()
+            .then(function (res) {
+            return res.json().map;
+        })
+            .catch(this.handleError);
+    };
     HeroService.prototype.update = function (hero) {
         // const url = `${this.heroesUrl}/${hero.date}`;
         // console.log(this.headers);
         var url = "http://starstech.iego.cn:8080/call_center/webApi/saveSchedule";
-        var creds = "jsonStr=" + JSON.stringify(hero);
+        var creds = "jsonStr=" + JSON.stringify(hero) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        ;
         console.log(creds);
         return this.http
             .post(url, creds, { headers: this.headers })
@@ -163,13 +186,14 @@ var HeroService = (function () {
     };
     HeroService.prototype.updateContact = function (contact) {
         // const url = `${this.heroesUrl}/${hero.date}`;
-        var apiurl = this.heroesUrl + 'saveConcact';
+        var apiurl = this.heroesUrl + 'webApi/saveConcact';
         console.log(this.headers);
         // const url =`http://starstech.iego.cn:8080/call_center/webApi/saveSchedule`;
         if (contact.id == 0) {
             delete contact.id;
         }
-        var creds = "jsonStr=" + JSON.stringify(contact);
+        var creds = "jsonStr=" + JSON.stringify(contact) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        ;
         console.log(creds);
         return this.http
             .post(apiurl, creds, { headers: this.headers })
@@ -183,7 +207,8 @@ var HeroService = (function () {
         // const url = `${this.heroesUrl}/${hero.date}`;
         var apiurl = 'http://starstech.iego.cn:8080/call_center/jobCode/save';
         console.log(this.headers);
-        var creds = "jsonStr=" + JSON.stringify(parm);
+        var creds = "jsonStr=" + JSON.stringify(parm) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+        ;
         console.log(creds);
         return this.http
             .post(apiurl, creds, { headers: this.headers })

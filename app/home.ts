@@ -13,5 +13,5 @@ import { Component } from '@angular/core';
 export class Home {
   // constructor(public router: Router, public http: Http) {  }
 
-  title = 'Hello ' + JSON.parse(localStorage.getItem('id_token')).username;
+  title = 'Hello ' + JSON.parse(localStorage.getItem('dida_user')).loginName;
 }

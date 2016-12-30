@@ -14,7 +14,7 @@ var core_1 = require('@angular/core');
 var Home = (function () {
     function Home() {
         // constructor(public router: Router, public http: Http) {  }
-        this.title = 'Hello ' + JSON.parse(localStorage.getItem('id_token')).username;
+        this.title = 'Hello ' + JSON.parse(localStorage.getItem('dida_user')).loginName;
     }
     Home = __decorate([
         core_1.Component({

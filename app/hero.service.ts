@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-import { Hero,Contact,Incident,Role,InformType,Parm,JobType } from './hero';
+import { Hero,Contact,Incident,Role,InformType,Parm,JobType,User } from './hero';
 import { CONTACTS,INCIDENTS,ROLES,INFORMTYPES,PARMS,JOBTYPES } from './mock-heroes';
 
 @Injectable()
 export class HeroService {
 	// private heroesUrl = 'app/heroes';  // URL to web api
-	private heroesUrl = 'http://starstech.iego.cn:8080/call_center/webApi/';
+  // JSON.parse(localStorage.getItem('dida_user')).token
+
+	private heroesUrl = 'http://starstech.iego.cn:8080/call_center/';
+
+  private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
   	constructor(private http: Http) { }
   	
@@ -58,8 +62,9 @@ export class HeroService {
     // 	return this.http.get(this.heroesUrl, {headers: headers})
      
      // return Promise.resolve(HEROES);
-       let apiurl= this.heroesUrl + 'getScheduleList';
-    	 return this.http.get(apiurl)
+       let apiurl= this.heroesUrl + 'webApi/getScheduleList' ;
+      let creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+      return this.http.post(apiurl, creds,{headers: this.headers})
                .toPromise()
                .then(response => 
                	  response.json() 
@@ -67,9 +72,13 @@ export class HeroService {
                .catch(this.handleError);
     }
 
+
   getContacts(): Promise<Contact[]> {
-      let apiurl= this.heroesUrl + 'getContactList';
-      return this.http.get(apiurl)
+      let apiurl= this.heroesUrl + 'webApi/getContactList' ;
+      let creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+      console.log(creds);
+      return this.http
+      .post(apiurl, creds,{headers: this.headers})
          .toPromise()
          .then(response => 
             {let rc=response.json()
@@ -82,8 +91,9 @@ export class HeroService {
 	}
 
   getParms(): Promise<Parm[]> {
-      let apiurl=  'http://starstech.iego.cn:8080/call_center/jobCode/list';
-      return this.http.get(apiurl)
+      let apiurl=  'http://starstech.iego.cn:8080/call_center/jobCode/list' ;
+      let creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+      return this.http.post(apiurl, creds,{headers: this.headers})
          .toPromise()
          .then(response => 
             {let rc=response.json()
@@ -108,9 +118,10 @@ export class HeroService {
   }
 
 	getIncidents(): Promise<Incident[]> {
-      let apiurl= this.heroesUrl + 'getIncidentList';
-      return this.http.get(apiurl)
-         .toPromise()
+      let apiurl= this.heroesUrl + 'webApi/getIncidentList';
+      let creds = 'token=' + JSON.parse(localStorage.getItem('dida_user')).token;
+      return this.http.post(apiurl, creds,{headers: this.headers})
+        .toPromise()
          .then(response => 
             response.json() 
          )
@@ -144,16 +155,30 @@ export class HeroService {
             parm.id == id));
   }
 
- private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});//{'Content-Type': 'application/x-www-form-urlencoded'});
+ //{'Content-Type': 'application/x-www-form-urlencoded'});
  
   // headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
+  getToken(user: User): Promise<User> {
+      // const url = `${this.heroesUrl}/${hero.date}`;
+      // console.log(this.headers);
+      let apiurl= this.heroesUrl + 'authApi/checkLogin';
+       let creds = "jsonStr=" +JSON.stringify(user);
+      console.log(creds);
+      return this.http
+      // .put(url, JSON.stringify(hero), {headers: this.headers})
+      .post(apiurl, creds,{headers: this.headers})
+      .toPromise()
+      .then(res => 
+        res.json().map)
+      .catch(this.handleError);
+  }
 
 	update(hero: Hero): Promise<Hero> {
 	    // const url = `${this.heroesUrl}/${hero.date}`;
 	    // console.log(this.headers);
 	    const url =`http://starstech.iego.cn:8080/call_center/webApi/saveSchedule`;
-	     let creds = "jsonStr=" +JSON.stringify(hero);
+	     let creds = "jsonStr=" +JSON.stringify(hero) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;;
 	    console.log(creds);
 	    return this.http
 	    // .put(url, JSON.stringify(hero), {headers: this.headers})
@@ -166,13 +191,13 @@ export class HeroService {
 
   updateContact(contact: Contact): Promise<Contact> {
       // const url = `${this.heroesUrl}/${hero.date}`;
-      let apiurl= this.heroesUrl + 'saveConcact';
+      let apiurl= this.heroesUrl + 'webApi/saveConcact';
       console.log(this.headers);
       // const url =`http://starstech.iego.cn:8080/call_center/webApi/saveSchedule`;
       if(contact.id==0){
         delete contact.id
       }
-      let creds = "jsonStr=" +JSON.stringify(contact);
+      let creds = "jsonStr=" +JSON.stringify(contact) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;;
       console.log(creds);
       return this.http
       // .put(url, JSON.stringify(hero), {headers: this.headers})
@@ -187,7 +212,7 @@ export class HeroService {
       // const url = `${this.heroesUrl}/${hero.date}`;
       let apiurl= 'http://starstech.iego.cn:8080/call_center/jobCode/save';
       console.log(this.headers);
-      let creds = "jsonStr=" +JSON.stringify(parm);
+      let creds = "jsonStr=" +JSON.stringify(parm) + '&token=' + JSON.parse(localStorage.getItem('dida_user')).token;;
       console.log(creds);
       return this.http
       .post(apiurl, creds,{headers: this.headers})

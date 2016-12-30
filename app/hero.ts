@@ -57,3 +57,9 @@ export class Incident {
   inccalltime: string;
   inctime: string; 
 }
+
+export class User {
+  loginName : string;
+  password: string;
+  token:string;
+}

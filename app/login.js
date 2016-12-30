@@ -11,29 +11,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
+var hero_service_1 = require('./hero.service');
 // import { contentHeaders } from '../common/headers';
 var Login = (function () {
-    function Login(router, http) {
+    function Login(heroService, router, http) {
+        this.heroService = heroService;
         this.router = router;
         this.http = http;
+        this.user = { loginName: '', password: '', token: '' };
+        this.token = JSON.parse(localStorage.getItem('dida_user')).token;
     }
     Login.prototype.login = function (event, username, password) {
+        var _this = this;
         event.preventDefault();
-        var body = JSON.stringify({ username: username, password: password });
-        localStorage.setItem('id_token', body);
-        console.log(localStorage.getItem('id_token'));
-        this.router.navigate(['home']);
-        // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
-        //   .subscribe(
-        //     response => {
-        //       localStorage.setItem('id_token', response.json().id_token);
-        //       this.router.navigate(['home']);
-        //     },
-        //     error => {
-        //       alert(error.text());
-        //       console.log(error.text());
-        //     }
-        //   );
+        this.user.loginName = username;
+        this.user.password = password;
+        this.user.token = '';
+        // let body = JSON.stringify({ username, password });
+        // localStorage.setItem('id_token', body);
+        // console.log(localStorage.getItem('id_token'));
+        // this.router.navigate(['home']);
+        this.heroService.getToken(this.user)
+            .then(function (res) {
+            console.log(res);
+            _this.user.password = '';
+            _this.user.token = '';
+            if (res.token) {
+                _this.user.token = encodeURIComponent(res.token);
+                var body = JSON.stringify(_this.user);
+                localStorage.setItem('dida_user', body);
+                console.log(localStorage.getItem('dida_user'));
+                _this.router.navigate(['home']);
+                location.reload();
+            }
+            ;
+        });
     };
     Login = __decorate([
         core_1.Component({
@@ -41,7 +53,7 @@ var Login = (function () {
             templateUrl: 'app/login.html',
             styleUrls: ['app/login.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, http_1.Http])
+        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router, http_1.Http])
     ], Login);
     return Login;
 }());
