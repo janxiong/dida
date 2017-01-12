@@ -1,3 +1,4 @@
+<div class="container">
 <h3>Plan Of This Week</h3>
 <div class="grid grid-pad">
   <div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-7">
@@ -7,8 +8,10 @@
   </div>
 </div>
 <div>
+<div id="contactDiv">
 <h3>Contact With Us</h3>
-<table class="grid grid-pad">
+</div>
+<table class="table table-bordered table-striped table-hover">
 	<thead>
         <tr><th>Name</th><th>Cellphone</th><th>City</th><th>Role</th></tr>
     </thead>
@@ -29,6 +32,7 @@
 </table>
 </div>
 <div>
+<div id="incidentlogDiv">
 <h3>Incident Log
     <select 
         [(ngModel)]="selectedPeriod" (ngModelChange)="updatePeriod($event)">
@@ -39,7 +43,8 @@
         
       </select>
       </h3>
-<table class="grid grid-pad">
+</div>
+<table class="table table-bordered table-striped table-hover">
 	<thead>
   <tr><th>Time</th><th>Incident NO.</th><th>Priority</th><th>Call Member</th></tr>
         
@@ -59,4 +64,5 @@
     </td>
   </tr>
 </table>
+</div>
 </div>
