@@ -6,13 +6,32 @@ import { HeroService } from './hero.service';
 @Component({
   selector: 'my-app',
   template: `
-  <h1>{{title}}</h1><button class="logout" *ngIf="token" (click)="logOut()">Logout</button>
-  <nav>
-    <a routerLink="/home" routerLinkActive="active" *ngIf="token">Home</a>
-    <a routerLink="/dashboard" routerLinkActive="active" *ngIf="token">Dashboard</a>
-    <a routerLink="/heroes" routerLinkActive="active" *ngIf="token">Plan</a>
-    <a routerLink="/parm" routerLinkActive="active" *ngIf="token">Parm</a>
+  
+  <nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	<!--小屏幕导航按钮和title-->
+	<div class="navbar-header">
+	<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	</button>
+    <h1>{{title}}</h1><button class="logout" *ngIf="token" (click)="logOut()">Logout</button>
+    </div>
+    <!--小屏幕导航按钮和title-->
+    <!--导航-->
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+    <li><a routerLink="/login" routerLinkActive="active" *ngIf="token">Home</a></li>
+    <li><a routerLink="/dashboard" routerLinkActive="active" *ngIf="token">Dashboard</a></li>
+    <li><a routerLink="/heroes" routerLinkActive="active" *ngIf="token">Plan</a></li>
+    <li><a routerLink="/parm" routerLinkActive="active" *ngIf="token">Parm</a><li>
+    </ul>
+	</div>
+    <!--导航-->
+	</div>
   </nav>
+  
   <router-outlet></router-outlet>
   `,
   styleUrls: ['app/app.component.css']
