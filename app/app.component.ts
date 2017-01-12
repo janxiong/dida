@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { HeroService } from './hero.service';
@@ -18,22 +18,25 @@ import { HeroService } from './hero.service';
   styleUrls: ['app/app.component.css']
     
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private heroService: HeroService,public router: Router, public http: Http) {
   }
 
     title = 'DiDa';
-    // token='a';
-    // x=JSON.parse(localStorage.getItem('dida_user')).token;
-    // token=null;
-    // console.log('hello');
-    // console.log(JSON.parse(localStorage.getItem('dida_user')));
-    token=JSON.parse(localStorage.getItem('dida_user')).token;
-    // if (JSON.parse(localStorage.getItem('dida_user')).token)
-    //  {token=JSON.parse(localStorage.getItem('dida_user')).token}
+    token:string;
+    // token = '';
+    // token=JSON.parse(localStorage.getItem('dida_user')).token;
+    // if (localStorage.dida_user){ 
+    
+    ngOnInit(): void {
+    if (localStorage.getItem('dida_token')){     
+    this.token = localStorage.getItem('dida_token');}
+    }
+
   logOut(): void {
     this.token=null;
     localStorage.setItem('dida_user', '{}');
+    localStorage.setItem('dida_token', '');
     this.router.navigate(['login']);
   }
 }

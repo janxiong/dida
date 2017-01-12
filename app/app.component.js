@@ -18,18 +18,19 @@ var AppComponent = (function () {
         this.router = router;
         this.http = http;
         this.title = 'DiDa';
-        // token='a';
-        // x=JSON.parse(localStorage.getItem('dida_user')).token;
-        // token=null;
-        // console.log('hello');
-        // console.log(JSON.parse(localStorage.getItem('dida_user')));
-        this.token = JSON.parse(localStorage.getItem('dida_user')).token;
     }
-    // if (JSON.parse(localStorage.getItem('dida_user')).token)
-    //  {token=JSON.parse(localStorage.getItem('dida_user')).token}
+    // token = '';
+    // token=JSON.parse(localStorage.getItem('dida_user')).token;
+    // if (localStorage.dida_user){ 
+    AppComponent.prototype.ngOnInit = function () {
+        if (localStorage.getItem('dida_token')) {
+            this.token = localStorage.getItem('dida_token');
+        }
+    };
     AppComponent.prototype.logOut = function () {
         this.token = null;
         localStorage.setItem('dida_user', '{}');
+        localStorage.setItem('dida_token', '');
         this.router.navigate(['login']);
     };
     AppComponent = __decorate([

@@ -19,8 +19,14 @@ var Login = (function () {
         this.router = router;
         this.http = http;
         this.user = { loginName: '', password: '', token: '' };
-        this.token = JSON.parse(localStorage.getItem('dida_user')).token;
     }
+    Login.prototype.ngOnInit = function () {
+        if (localStorage.getItem('dida_token')) {
+            this.token = localStorage.getItem('dida_token');
+        }
+        console.log(this.token);
+        console.log(!this.token);
+    };
     Login.prototype.login = function (event, username, password) {
         var _this = this;
         event.preventDefault();
@@ -40,6 +46,7 @@ var Login = (function () {
                 _this.user.token = encodeURIComponent(res.token);
                 var body = JSON.stringify(_this.user);
                 localStorage.setItem('dida_user', body);
+                localStorage.setItem('dida_token', _this.user.token);
                 console.log(localStorage.getItem('dida_user'));
                 _this.router.navigate(['home']);
                 location.reload();

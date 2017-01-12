@@ -1,4 +1,4 @@
-import { Component, Input, OnInit  } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core'; 
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { HeroService } from './hero.service';
@@ -10,11 +10,17 @@ import { User} from './hero';
   templateUrl: 'app/login.html',
   styleUrls: [ 'app/login.css' ]
 })
-export class Login {
+export class Login implements OnInit{
   user:User={loginName:'',password:'',token:''};
+  token:any;
 
-  token=JSON.parse(localStorage.getItem('dida_user')).token;
-
+  ngOnInit(): void {
+    if(localStorage.getItem('dida_token') ){
+      this.token=localStorage.getItem('dida_token');
+    }
+    console.log(this.token);
+    console.log(!this.token);
+  }
   constructor(private heroService: HeroService,public router: Router, public http: Http) {
   }
 
@@ -37,6 +43,7 @@ export class Login {
         this.user.token= encodeURIComponent(res.token);
         let body = JSON.stringify(this.user);
         localStorage.setItem('dida_user', body);
+        localStorage.setItem('dida_token', this.user.token);
         console.log(localStorage.getItem('dida_user'));
         this.router.navigate(['home']);
         location.reload();
