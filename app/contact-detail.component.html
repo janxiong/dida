@@ -1,27 +1,31 @@
-<div *ngIf="contact">
-  <h2>Information {{contact.id}}</h2>
+<div class="container">
+<div class="personInfo" *ngIf="contact">
+  
+  <h3>Information {{contact.id}}</h3>
   <div>
     <label>id: </label>{{contact.id}}
   </div>
-  <div>
+
+  <div class="form-group">
+  
     <label>name: </label>
-    <input [(ngModel)]="contact.name" placeholder="name" />
+    <input class="form-control" [(ngModel)]="contact.name" placeholder="name" />
   </div>
-  <div>
+  <div class="form-group">
     <label>cellphone: </label>
-    <input [(ngModel)]="contact.cellphone" placeholder="cellphone" />
+    <input class="form-control" [(ngModel)]="contact.cellphone" placeholder="cellphone" />
   </div>
-  <div>
+  <div class="form-group">
     <label>telephone: </label>
-    <input [(ngModel)]="contact.telephone" placeholder="telephone" />
+    <input input class="form-control" [(ngModel)]="contact.telephone" placeholder="telephone" />
   </div>
-  <div>
+  <div class="form-group">
     <label>Email: </label>
-    <input [(ngModel)]="contact.Email" placeholder="Email" />
+    <input input class="form-control" [(ngModel)]="contact.Email" placeholder="Email" />
   </div>
-  <div>
+  <div class="form-group">
     <label>InformType: </label>
-    <select 
+    <select input class="form-control"
         [(ngModel)]="selectedType" (ngModelChange)="updateInformType($event)">
         <option disabled value="0" class="hideoption">{{contact.InformType}}</option>
         <option *ngFor="let informtype of informtypes"    [ngValue]="informtype" > 
@@ -29,13 +33,13 @@
       </option>
       </select>
   </div>
-  <div>
+  <div class="form-group">
     <label>City: </label>
-    <input [(ngModel)]="contact.City" placeholder="City" />
+    <input input class="form-control" [(ngModel)]="contact.City" placeholder="City" />
   </div>
-    <div>
+    <div class="form-group">
     <label>Role: </label>
-    <select 
+    <select input class="form-control"
         [(ngModel)]="selectedRole" (ngModelChange)="updateRole($event)">
         <option disabled value="0" class="hideoption">{{contact.Role}}</option>
         <option *ngFor="let role of roles"    [ngValue]="role" > 
@@ -44,4 +48,7 @@
       </select>
   </div>
   <button (click)="save()">Save</button> <button (click)="goBack()">Back</button>
+
+</div>
+
 </div>

@@ -16,16 +16,17 @@ import { HeroService } from './hero.service';
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
 	</button>
-    <h1>{{title}}</h1><button class="logout" *ngIf="token" (click)="logOut()">Logout</button>
+    <h1>{{title}}</h1>
     </div>
     <!--小屏幕导航按钮和title-->
     <!--导航-->
     <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
-    <li><a routerLink="/login" routerLinkActive="active" *ngIf="token">Home</a></li>
+    <li><a routerLink="/home" routerLinkActive="active" *ngIf="token">Home</a></li>
     <li><a routerLink="/dashboard" routerLinkActive="active" *ngIf="token">Dashboard</a></li>
     <li><a routerLink="/heroes" routerLinkActive="active" *ngIf="token">Plan</a></li>
     <li><a routerLink="/parm" routerLinkActive="active" *ngIf="token">Parm</a><li>
+    <li><a routerLink="/login" routerLinkActive="active" *ngIf="token" (click)="logOut()">Logout</a></li>
     </ul>
 	</div>
     <!--导航-->

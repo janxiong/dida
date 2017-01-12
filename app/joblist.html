@@ -1,27 +1,28 @@
+<div class="container">
 <div *ngIf="parm">
-  <h2>JobList {{parm.id}}</h2>
+  <h3>JobList {{parm.id}}</h3>
   <div>
     <label>id: </label>{{parm.id}}
   </div>
-  <div>
-    <label>appId: </label>
-    <input [(ngModel)]="parm.appId" placeholder="appId" />
+  <div class="form-group">
+    <label >appId: </label>
+    <input class="form-control" [(ngModel)]="parm.appId" placeholder="appId" />
   </div>
-  <div>
+  <div class="form-group">
     <label>jobCode: </label>
-    <input [(ngModel)]="parm.jobCode" placeholder="jobCode" />
+    <input class="form-control" [(ngModel)]="parm.jobCode" placeholder="jobCode" />
   </div>
-  <div>
+  <div class="form-group">
     <label>modelState: </label>
-    <input [(ngModel)]="parm.modelState" placeholder="modelState" />
+    <input class="form-control" [(ngModel)]="parm.modelState" placeholder="modelState" />
   </div>
-  <div>
+  <div class="form-group">
     <label>createTime: </label>
-    <input [(ngModel)]="parm.createTime" placeholder="createTime" />
+    <input class="form-control" [(ngModel)]="parm.createTime" placeholder="createTime" />
   </div>
-  <div>
+  <div class="form-group">
     <label>priority: </label>
-    <select 
+    <select class="form-control"
         [(ngModel)]="selectedType" (ngModelChange)="updateJobType($event)">
         <option disabled value="0" class="hideoption">{{parm.priority}}</option>
         <option *ngFor="let jobtype of jobtypes"    [ngValue]="jobtype" > 
@@ -29,9 +30,10 @@
       </option>
       </select>
   </div>
-  <div>
+  <div class="form-group">
     <label>updateTime: </label>
-    <input [(ngModel)]="parm.updateTime" placeholder="updateTime" />
+    <input class="form-control" [(ngModel)]="parm.updateTime" placeholder="updateTime" />
   </div>
   <button (click)="save()">Save</button> <button (click)="goBack()">Back</button>
+</div>
 </div>

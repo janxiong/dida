@@ -1,12 +1,16 @@
-  <h2>Shift Plan</h2>
-  <div>
-    <label>Member name:</label> <input #heroName (keyup)="o"/>
+<div class="container">
+  <h3>Shift Plan</h3>
+  
+  <div id="memberName">
+    <label>Member name:</label><input id="mbnmText" #heroName (keyup)="o"/>
   </div>
-  <div>
-    <button (click)="getPre()">< Previous</button>
-    <button (click)="getCur()">Current</button>
-    <button (click)="getNext()">Next ></button>
+  <div id="btns">
+    <button class="btn" (click)="getPre()">< Previous</button>
+    <button class="btn" (click)="getCur()">Current</button>
+    <button class="btn" (click)="getNext()">Next ></button>
   </div>
+  
+  <div id="heroesDiv">
   <ul class="heroes">
 	  <li class="cal" *ngFor="let hero of (heroes | flyingHeroes:heroName.value) " [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
       <span class="badge">{{hero.date}}<br>{{hero.weekday}}</span>
@@ -16,7 +20,7 @@
       <span class=""><i class="glyphicon glyphicon-earphone"></i>{{hero.name}}</span>
 	  </li>
   </ul>
-
+  </div>
   <div *ngIf="selectedHero">
     <h2>
       Plan Of {{selectedHero.date}} {{selectedHero.weekday}} <button (click)="gotoDetail()">Modify</button>
@@ -26,23 +30,24 @@
 
   </div>
 
-  <div>
-    <label>shift owner: </label>
-    <input [(ngModel)]="selectedHero.shift" placeholder="shift owner" readonly="readonly"/>
-  </div>
-  <div>
-    <label>shiftcall: </label>
-    <input [(ngModel)]="selectedHero.shiftcall" placeholder="shiftcall" readonly="readonly"/>
+  <fieldset class="input-box">
+    <label class="shiftOwner col-sm-2">shift owner: </label>
+    <input class="col-sm-4" [(ngModel)]="selectedHero.shift" placeholder="shift owner" readonly="readonly"/>
+  </fieldset>
+  <fieldset class="input-box">
+    <label class="shiftOwner col-sm-2">shiftcall: </label>
+    <input class="col-sm-4" [(ngModel)]="selectedHero.shiftcall" placeholder="shiftcall" readonly="readonly"/>
 
 
-  </div>
-  <div>
-    <label>oncall name: </label>
-    <input [(ngModel)]="selectedHero.name" placeholder="name" readonly="readonly"/>
-  </div>
-  <div>
-    <label>oncall: </label>
-    <input [(ngModel)]="selectedHero.oncall" placeholder="oncall" readonly="readonly"/>
+  </fieldset>
+  <fieldset class="input-box col-sm-2">
+    <label class="shiftOwner">oncall name: </label>
+    <input class="col-sm-4" [(ngModel)]="selectedHero.name" placeholder="name" readonly="readonly"/>
+  </fieldset>
+  <fieldset class="input-box">
+    <label class="shiftOwner col-sm-2">oncall: </label>
+    <input class="col-sm-4" [(ngModel)]="selectedHero.oncall" placeholder="oncall" readonly="readonly"/>
 
+  </fieldset>
   </div>
-  </div>
+ </div> 
